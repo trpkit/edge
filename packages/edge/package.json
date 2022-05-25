@@ -1,0 +1,14 @@
+{
+  "name": "@trpkit/edge",
+  "version": "0.1.0",
+  "private": true,
+  "peerDependencies": {
+    "discord.js": "^13.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.35",
+    "arg": "^5.0.1",
+    "discord.js": "^13.7.0",
+    "typescript": "^4.7.2"
+  }
+}
