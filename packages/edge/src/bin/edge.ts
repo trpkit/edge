@@ -31,3 +31,7 @@ console.log(command);
 
 // TODO: create dev command
 // TODO: create build command
+
+// Allow for graceful termination
+process.on('SIGTERM', () => process.exit(0));
+process.on('SIGINT', () => process.exit(0));
