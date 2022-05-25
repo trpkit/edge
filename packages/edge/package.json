@@ -2,6 +2,12 @@
   "name": "@trpkit/edge",
   "version": "0.1.0",
   "private": true,
+  "bin": {
+    "edge": "./dist/bin/edge.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
   "peerDependencies": {
     "discord.js": "^13.7.0"
   },

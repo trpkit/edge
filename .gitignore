@@ -7,3 +7,7 @@ yarn.lock
 # editors
 .idea
 .vscode
+
+# outputs
+dist
+.turbo

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import arg from 'arg';
+import { server } from '../server';
 
 // ensure discord.js is installed
 try {
@@ -21,16 +22,15 @@ const args = arg(
 );
 
 if (args['--version']) {
-  console.log(`Edge v${require('../package.json').version}`);
+  console.log(`Edge v${require('../../package.json').version}`);
   process.exit(0);
 }
 
 const command = args._[0];
 
-console.log(command);
-
-// TODO: create dev command
-// TODO: create build command
+if (command === 'dev') {
+  server().catch(console.error);
+}
 
 // Allow for graceful termination
 process.on('SIGTERM', () => process.exit(0));
