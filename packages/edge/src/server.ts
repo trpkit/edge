@@ -38,9 +38,7 @@ export const server = async (token: string) => {
       // TODO: Look into supporting ts files, will require compiling - possibly esbuild or swc?
       const parts = file.split('.');
 
-      if (!(parts.length === 2 && parts[1] === 'js')) {
-        continue;
-      }
+      if (!(parts.length === 2 && parts[1] === 'js')) continue;
 
       const command = (await import(`${workingDir}/commands/${parts[0]}`))
         .default;
