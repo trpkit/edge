@@ -1,6 +1,6 @@
 import { defaultClient } from './client';
 
-export const server = async () => {
+export const server = async (token: string) => {
   const { client } = defaultClient();
 
   // TODO: Provide basic slash command handler
@@ -8,5 +8,5 @@ export const server = async () => {
   // TODO: Automatically read `/events` directory and load all events
   // TODO: Automatically read `/commands` directory and load all commands
 
-  await client.login();
+  await client.login(token);
 };

@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import arg from 'arg';
-import { server } from '../server';
 
 // ensure discord.js is installed
 try {
@@ -27,11 +26,17 @@ if (args['--version']) {
 }
 
 const command = args._[0];
+const commandArgs = args._.slice(1);
 
-if (command === 'dev') {
-  server().catch(console.error);
-}
+// available commands
+const commands: { [command: string]: () => Promise<(argv: string[]) => void> } =
+  {
+    dev: () => Promise.resolve(require('../cli/dev').dev)
+  };
 
-// Allow for graceful termination
+// allow for graceful termination
 process.on('SIGTERM', () => process.exit(0));
 process.on('SIGINT', () => process.exit(0));
+
+// execute command
+commands[command]().then((c) => c(commandArgs));
