@@ -14,18 +14,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup Node 16
-        uses: actions/setup-node@v3
+      - name: Setup Deno
+        uses: actions/setup-deno@v1
         with:
-          node-version: 16
-      - name: Restore Cache
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-      - name: Install Dependencies
-        run: yarn --frozen-lockfile --ignore-scripts
-      - name: Run Format
-        run: yarn format:check
-      - name: Run Build
-        run: yarn build
+          deno-version: v1.x
+      - name: Run deno fmt
+        run: deno fmt src --check
+      - name: Run deno lint
+        run: deno lint src
