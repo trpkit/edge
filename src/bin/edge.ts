@@ -19,7 +19,7 @@ const commands: { [command: string]: (argv: Args) => void } = {
 try {
   Deno.addSignalListener("SIGTERM", () => Deno.exit());
   Deno.addSignalListener("SIGINT", () => Deno.exit());
-} catch (e) {
+} catch (_e) {
   console.warn("OS signals not available.");
 }
 
