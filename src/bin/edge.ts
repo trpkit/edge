@@ -1,10 +1,10 @@
 import { Args, parse } from "https://deno.land/std/flags/mod.ts";
+import { EDGE_VERSION } from "../shared/constants.ts";
 
 const args = parse(Deno.args);
 
 if (args["version"]) {
-  // TODO: Move version to a constant
-  console.log(`Edge v0.1.0`);
+  console.log(`Edge v${EDGE_VERSION}`);
   Deno.exit();
 }
 
