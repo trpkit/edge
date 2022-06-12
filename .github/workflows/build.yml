@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Deno
-        uses: actions/setup-deno@v1
+        uses: denoland/setup-deno@v1.0.0
         with:
           deno-version: v1.x
       - name: Run deno fmt
