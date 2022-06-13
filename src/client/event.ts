@@ -240,5 +240,5 @@ interface ClientEvents {
 }
 
 export interface Event<E extends keyof ClientEvents> {
-  (bot: Bot, ...args: ClientEvents[E]): Promise<void> | void;
+  (...args: ClientEvents[E]): Promise<void> | void;
 }
