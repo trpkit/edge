@@ -171,7 +171,7 @@ interface TypingStartPayload {
   member: Member | undefined;
 }
 
-interface ClientEvents {
+export interface ClientEvents {
   debug: [text: string, ...args: unknown[]];
   threadCreate: [bot: Bot, thread: Channel];
   threadDelete: [bot: Bot, thread: Channel];
