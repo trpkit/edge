@@ -20,7 +20,7 @@ try {
   Deno.addSignalListener("SIGTERM", () => Deno.exit());
   Deno.addSignalListener("SIGINT", () => Deno.exit());
 } catch (_e) {
-  console.warn("OS signals not available.");
+  console.warn("OS signals not available");
 }
 
 await commands[command](args);
