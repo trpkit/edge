@@ -1,10 +1,28 @@
-import { devClient, devEventCache } from "../client/dev-client.ts";
-import { startBot } from "https://deno.land/x/discordeno@13.0.0-rc45/bot.ts";
+import {
+  devClient,
+  devCommandCache,
+  devEventCache,
+} from "../client/dev-client.ts";
+import { startBot } from "https://deno.land/x/discordeno@13.0.0-rc45/mod.ts";
 import { ClientEvents, EdgeEvent } from "../client/event.ts";
 import { bundleFiles } from "./bundler.ts";
 
-const readyEvent: EdgeEvent<"ready"> = (bot) => {
+const startupHandler: EdgeEvent<"ready"> = (bot) => {
   console.log(`Successfully logged into ${bot.id}`);
+};
+
+const commandHandler: EdgeEvent<"interactionCreate"> = async (
+  bot,
+  interaction,
+) => {
+  if (!interaction.data) return;
+  if (interaction.type !== 2) return; // comparing to InteractionTypes.ApplicationCommand seems broken
+
+  const commandName = interaction.data.name;
+  const command = devCommandCache.get(commandName);
+
+  if (!command) return;
+  await command?.(bot, interaction);
 };
 
 export const startServer = async (token: string, applicationId: bigint) => {
@@ -12,7 +30,8 @@ export const startServer = async (token: string, applicationId: bigint) => {
 
   const bot = devClient(token, applicationId);
 
-  devEventCache.set("ready", [readyEvent]);
+  devEventCache.set("ready", [startupHandler]);
+  devEventCache.set("interactionCreate", [commandHandler]);
 
   for (const [event, handlers] of devEventCache) {
     bot.events[event] = function () {
