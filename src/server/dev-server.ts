@@ -1,7 +1,7 @@
 import { devClient, devEventCache } from "../client/dev-client.ts";
 import { startBot } from "https://deno.land/x/discordeno@13.0.0-rc45/bot.ts";
 import { ClientEvents, EdgeEvent } from "../client/event.ts";
-import { bundleFiles } from './bundler.ts';
+import { bundleFiles } from "./bundler.ts";
 
 const readyEvent: EdgeEvent<"ready"> = (bot) => {
   console.log(`Successfully logged into ${bot.id}`);

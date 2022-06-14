@@ -79,11 +79,11 @@ export const bundleFiles = async (): Promise<void> => {
 
   // Generate commands bundle
   const commandBundle = bundleDirectory("commands");
-  await import(`file:///${commandBundle.replaceAll('\\', '/')}`);
+  await import(`file:///${commandBundle.replaceAll("\\", "/")}`);
 
   // Generate events bundle
   const eventBundle = bundleDirectory("events");
-  await import(`file:///${eventBundle.replaceAll('\\', '/')}`);
+  await import(`file:///${eventBundle.replaceAll("\\", "/")}`);
 
   console.log("Compiled bundles");
 };
