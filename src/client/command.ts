@@ -6,5 +6,5 @@ import {
 
 export interface EdgeCommand {
   (bot: Bot, interaction: Interaction): Promise<void> | void;
-  options: ApplicationCommandOption[];
+  options: ApplicationCommandOption;
 }

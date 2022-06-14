@@ -1,18 +1,21 @@
 import { devClient, devEventCache } from "../client/dev-client.ts";
 import { startBot } from "https://deno.land/x/discordeno@13.0.0-rc45/bot.ts";
-import { ClientEvents, EdgeEvent } from '../client/event.ts';
+import { ClientEvents, EdgeEvent } from "../client/event.ts";
+import { bundleFiles } from './bundler.ts';
 
-const readyEvent: EdgeEvent<'ready'> = (bot) => {
-  console.log(`Successfully logged into ${bot.id}`)
-}
+const readyEvent: EdgeEvent<"ready"> = (bot) => {
+  console.log(`Successfully logged into ${bot.id}`);
+};
 
 export const startServer = async (token: string, applicationId: bigint) => {
+  await bundleFiles();
+
   const bot = devClient(token, applicationId);
 
-  devEventCache.set('ready', [readyEvent]);
+  devEventCache.set("ready", [readyEvent]);
 
   for (const [event, handlers] of devEventCache) {
-    bot.events[event] = function() {
+    bot.events[event] = function () {
       const args: ClientEvents[typeof event][] = Array.from(arguments);
 
       for (const handler of handlers) {
