@@ -4,12 +4,15 @@ import {
   createBot,
   GatewayIntents,
 } from "https://deno.land/x/discordeno@13.0.0-rc45/mod.ts";
-import { Command } from "./command.ts";
-import { ClientEvents } from "./event.ts";
+import { EdgeCommand } from "./command.ts";
+import { ClientEvents, EdgeEvent } from "./event.ts";
 
-export const devCommandCache = new Collection<string, Command>();
+export const devCommandCache = new Collection<string, EdgeCommand>();
 
-export const devEventCache = new Collection<keyof ClientEvents, Event[]>();
+export const devEventCache = new Collection<
+  keyof ClientEvents,
+  EdgeEvent<any>[]
+>();
 
 export const devClient = (token: string, applicationId: bigint): Bot => {
   return createBot({

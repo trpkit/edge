@@ -239,6 +239,6 @@ export interface ClientEvents {
   typingStart: [bot: Bot, payload: TypingStartPayload];
 }
 
-export interface Event<E extends keyof ClientEvents> {
+export interface EdgeEvent<E extends keyof ClientEvents> {
   (...args: ClientEvents[E]): Promise<void> | void;
 }

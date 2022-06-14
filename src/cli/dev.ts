@@ -1,6 +1,5 @@
 import { Args } from "https://deno.land/std/flags/mod.ts";
-import { startBot } from "https://deno.land/x/discordeno@13.0.0-rc45/mod.ts";
-import { devClient } from "../client/dev-client.ts";
+import { startServer } from "../server/dev-server.ts";
 
 export const dev = (argv: Args) => {
   if (!argv["token"] && !Deno.env.get("DISCORD_TOKEN")) {
@@ -21,6 +20,5 @@ export const dev = (argv: Args) => {
   const applicationId = argv["applicationId"] ||
     Deno.env.get("DISCORD_APPLICATION_ID");
 
-  const bot = devClient(token, applicationId);
-  startBot(bot).catch(console.error);
+  startServer(token, applicationId).catch(console.error);
 };
