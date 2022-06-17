@@ -1,55 +1,7 @@
 import { EDGE_DIRECTORY } from "../shared/constants.ts";
 
-const map: { [key: string]: string } = {
-  0: "a",
-  1: "b",
-  2: "c",
-  3: "d",
-  4: "e",
-  5: "f",
-  6: "g",
-  7: "h",
-  8: "i",
-  9: "j",
-  10: "k",
-  11: "l",
-  12: "m",
-  13: "n",
-  14: "o",
-  15: "p",
-  16: "q",
-  17: "r",
-  18: "s",
-  19: "t",
-  20: "u",
-  21: "v",
-  22: "w",
-  23: "x",
-  24: "y",
-  25: "z",
-  26: "0",
-  27: "1",
-  28: "2",
-  29: "3",
-  30: "4",
-  31: "5",
-  32: "6",
-  33: "7",
-  34: "8",
-  35: "9",
-};
-
-const sig = (): string => {
-  let x = 1 + Math.round(Math.random() * ((-1 >>> 0) - 1));
-  x ^= x << 13;
-  x ^= x >> 17;
-  x ^= x << 5;
-  let y = x >>> 1;
-  return map[y % 36] + map[(y >> 18) % 36];
-};
-
 export const createHash = (): string => {
-  return sig() + sig();
+  return (+new Date()).toString(36);
 };
 
 export const bundleFiles = async (): Promise<void> => {
