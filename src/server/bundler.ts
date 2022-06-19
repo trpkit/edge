@@ -52,8 +52,8 @@ const bundleDirectory = (dir: string) => {
     `${EDGE_DIRECTORY}/bundle.${sig}.ts`,
     [
       dir === "commands"
-        ? `import { devCommandCache } from "../src/client/dev-client.ts";`
-        : `import { addEvent } from "../src/client/dev-client.ts";`,
+        ? `import { devCommandCache } from "https://raw.githubusercontent.com/trpkit/edge/main/src/client/dev-client.ts";`
+        : `import { addEvent } from "https://raw.githubusercontent.com/trpkit/edge/main/src/client/dev-client.ts";`,
       ...files,
     ].map((file) => file).join("\n").replaceAll("\\", "/"),
   );
