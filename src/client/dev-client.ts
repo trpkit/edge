@@ -11,11 +11,13 @@ export const devCommandCache = new Collection<string, EdgeCommand>();
 
 export const devEventCache = new Collection<
   keyof ClientEvents,
+  // deno-lint-ignore no-explicit-any
   EdgeEvent<any>[]
 >();
 
 export const addEvent = (
   event: keyof ClientEvents,
+  // deno-lint-ignore no-explicit-any
   handler: EdgeEvent<any>,
 ) => {
   if (!devEventCache.has(event)) {
