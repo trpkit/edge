@@ -14,6 +14,17 @@ export const devEventCache = new Collection<
   EdgeEvent<any>[]
 >();
 
+export const addEvent = (
+  event: keyof ClientEvents,
+  handler: EdgeEvent<any>,
+) => {
+  if (!devEventCache.has(event)) {
+    devEventCache.set(event, [handler]);
+  } else {
+    devEventCache.get(event)!.push(handler);
+  }
+};
+
 export const devClient = (token: string, applicationId: bigint): Bot => {
   return createBot({
     token,

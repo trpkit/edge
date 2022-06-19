@@ -1,4 +1,5 @@
 import {
+  addEvent,
   devClient,
   devCommandCache,
   devEventCache,
@@ -31,8 +32,8 @@ export const startServer = async (token: string, applicationId: bigint) => {
 
   const bot = devClient(token, applicationId);
 
-  devEventCache.set("ready", [startupHandler]);
-  devEventCache.set("interactionCreate", [commandHandler]);
+  addEvent("ready", startupHandler);
+  addEvent("interactionCreate", commandHandler);
 
   for (const [event, handlers] of devEventCache) {
     bot.events[event] = function () {
