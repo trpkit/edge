@@ -7,7 +7,7 @@
 You will need to install the Edge CLI to begin using the Edge framework. This can be done by running the following command:
 
 ```bash
-deno install -f -A --unstable https://github.com/trpkit/edge/src/bin/edge.ts
+deno install -f -A --unstable https://raw.githubusercontent.com/trpkit/edge/main/src/bin/edge.ts
 ```
 
 **Note:** Depending on OS, you may need to add the output to your PATH, .bashrc, .bash_profile, or .zshrc manually.
