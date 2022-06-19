@@ -50,7 +50,12 @@ const bundleDirectory = (dir: string) => {
 
   Deno.writeTextFileSync(
     `${EDGE_DIRECTORY}/bundle.${sig}.ts`,
-    [...files].map((file) => file).join("\n").replaceAll("\\", "/"),
+    [
+      dir === "commands"
+        ? `import { devCommandCache } from "../src/client/dev-client.ts";`
+        : `import { devEventCache } from "../src/client/dev-client.ts";`,
+      ...files,
+    ].map((file) => file).join("\n").replaceAll("\\", "/"),
   );
 
   return `${EDGE_DIRECTORY}/bundle.${sig}.ts`;
@@ -63,8 +68,17 @@ const findFiles = (files: Set<string>, dir: string) => {
       continue;
     }
 
-    // todo check default export is type of T, where T is EdgeCommand or EdgeEvent
-    const filePath = `import "file:///${Deno.cwd()}/${dir}/${file.name}";`;
-    files.add(filePath);
+    const hash = createHash();
+    if (dir.startsWith('commands')) {
+      // todo type checking
+      const filePath =
+        `import { default as ${hash} } from "file:///${Deno.cwd()}/${dir}/${file.name}";`;
+      const commandSet = `devCommandCache.set(${hash}.options.name, ${hash});`;
+      files.add(filePath);
+      files.add(commandSet);
+    } else {
+      // todo handle events
+      // C extends EdgeEvent<infer T> ? T : unknown
+    }
   }
 };

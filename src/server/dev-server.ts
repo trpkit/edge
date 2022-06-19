@@ -6,7 +6,7 @@ import {
 import { startBot } from "https://deno.land/x/discordeno@13.0.0-rc45/mod.ts";
 import { ClientEvents, EdgeEvent } from "../client/event.ts";
 import { bundleFiles } from "./bundler.ts";
-import { startHmr } from './hmr.ts';
+import { startHmr } from "./hmr.ts";
 
 const startupHandler: EdgeEvent<"ready"> = (bot) => {
   console.log(`Successfully logged into ${bot.id}`);
@@ -28,7 +28,6 @@ const commandHandler: EdgeEvent<"interactionCreate"> = async (
 
 export const startServer = async (token: string, applicationId: bigint) => {
   await bundleFiles();
-  await startHmr(['commands', 'events']);
 
   const bot = devClient(token, applicationId);
 
@@ -45,5 +44,14 @@ export const startServer = async (token: string, applicationId: bigint) => {
     };
   }
 
+  console.log(
+    `Successfully loaded ${devCommandCache.size} commands`,
+  );
+
+  console.log(
+    `Successfully loaded ${devEventCache.size} events`,
+  );
+
   await startBot(bot);
+  await startHmr(["commands", "events"]);
 };
